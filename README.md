@@ -37,7 +37,7 @@ Execute a POST request. Takes a URL, parameters, and headers.
 ```javascript
 let data = "somedata"; // you can use an Object too as {id: '1', message: 'hello'}
 let token = "12345";
-window.CordovaHttpPlugin.post(url, xml, {"cookie":"name="+token, "content-type": "application/xml"},
+window.CordovaHttpPlugin.post(url, data, {"cookie":"name="+token, "content-type": "application/xml"},
             function(response) {
               console.log(response);
               console.log(JSON.parse(JSON.stringify(response.data)));
