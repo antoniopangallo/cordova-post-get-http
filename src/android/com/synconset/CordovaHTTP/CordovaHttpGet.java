@@ -22,9 +22,9 @@ import org.json.JSONObject;
 
 import android.util.Log;
 
-import com.github.kevinsawicki.http.HttpRequest;
-import com.github.kevinsawicki.http.HttpRequest.HttpRequestException;
- 
+import com.synconset.HttpRequest;
+import com.synconset.HttpRequest.HttpRequestException;
+
 public class CordovaHttpGet extends CordovaHttp implements Runnable {
     public CordovaHttpGet(String urlString, Map<?, ?> params, Map<String, String> headers, CallbackContext callbackContext) {
         super(urlString, params, headers, callbackContext);

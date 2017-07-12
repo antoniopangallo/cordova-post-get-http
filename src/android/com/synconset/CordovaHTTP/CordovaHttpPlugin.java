@@ -35,7 +35,7 @@ import android.content.res.AssetManager;
 import android.util.Base64;
 import android.util.Log;
 
-import com.github.kevinsawicki.http.HttpRequest;
+import com.synconset.HttpRequest;
 
 public class CordovaHttpPlugin extends CordovaPlugin {
     private static final String TAG = "CordovaHTTP";
@@ -59,11 +59,17 @@ public class CordovaHttpPlugin extends CordovaPlugin {
             cordova.getThreadPool().execute(get);
         } else if (action.equals("post")) {
             String urlString = args.getString(0);
-            JSONObject params = args.getJSONObject(1);
             JSONObject headers = args.getJSONObject(2);
-            HashMap<?, ?> paramsMap = this.getMapFromJSONObject(params);
             HashMap<String, String> headersMap = this.getStringMapFromJSONObject(headers);
-            CordovaHttpPost post = new CordovaHttpPost(urlString, paramsMap, headersMap, callbackContext);
+            CordovaHttpPost post;
+            try {
+                JSONObject params = args.getJSONObject(1);
+                HashMap<?, ?> paramsMap = this.getMapFromJSONObject(params);
+                post = new CordovaHttpPost(urlString, paramsMap, headersMap, callbackContext);
+            } catch (JSONException exception) {
+                String paramsMap = args.getString(1);
+                post = new CordovaHttpPost(urlString, paramsMap, headersMap, callbackContext);
+            }
             cordova.getThreadPool().execute(post);
         } else {
             return false;

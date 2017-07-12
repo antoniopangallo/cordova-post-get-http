@@ -20,7 +20,9 @@ function mergeHeaders (globalHeaders, localHeaders) {
 var http = {
   headers: {},
   cacheResults: false,
-  sslPinning: false,
+  setHeader: function (header, value) {
+    this.headers[header] = value;
+  },
   post: function (url, params, headers, success, failure) {
     headers = mergeHeaders(this.headers, headers);
     return exec(success, failure, 'CordovaHttpPlugin', 'post', [url, params, headers]);
@@ -72,6 +74,9 @@ if (typeof angular !== 'undefined') {
       },
       get: function (url, params, headers) {
         return makePromise(http.get, [url, params, headers], true);
+      },
+      setHeader: function (header, value) {
+        return http.setHeader(header, value);
       }
     };
     return cordovaHTTP;
